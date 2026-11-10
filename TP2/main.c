@@ -48,6 +48,17 @@ void to_grayscale_float(Image *img) {
     }
 }
 
+void to_grayscale_fixed(Image *img) {
+    for (int i = 0; i < img->width * img->height; i++) {
+        uint32_t gray_fixed = (19595U * img->data[i].r
+                             + 38470U * img->data[i].g
+                             + 7471U * img->data[i].b) >> 16;
+        uint8_t gray = (uint8_t)gray_fixed;
+        img->data[i].r = gray;
+        img->data[i].g = gray;
+        img->data[i].b = gray;
+    }
+}
 
 int main(int argc, char *argv[]) {
     //verif des arguments
